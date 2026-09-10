@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>Halid Delivery</title>
+
 <style>
 body {
   font-family: Arial;
@@ -43,7 +44,7 @@ button {
 <p>📍 Share your location for delivery</p>
 
 <button onclick="shareLocation()">
-📍 Share My Location
+📍 Share & Save My Location
 </button>
 
 <div id="result"></div>
@@ -70,13 +71,13 @@ let lat = position.coords.latitude;
 let lon = position.coords.longitude;
 
 let webApp =
-"YOUR_GOOGLE_SCRIPT_URL";
+"https://script.google.com/macros/s/AKfycbwafodZJSXSXWxkakz5Cu6DIIexqc5L1DlG28s2Wris4xFHNLXJpKyDhKyNAK_1pvqD/exec";
 
-fetch(webApp + "?lat=" + lat + "&lon=" + lon)
+fetch(webApp + "?lat=" + encodeURIComponent(lat) + "&lon=" + encodeURIComponent(lon))
 .then(() => {
 
 document.getElementById("result").innerHTML =
-"✅ Location sent successfully!";
+"✅ Location saved successfully!";
 
 })
 .catch(() => {
