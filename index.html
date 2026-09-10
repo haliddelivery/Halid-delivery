@@ -1,1 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Halid Delivery</title>
+<style>
+body {
+  font-family: Arial;
+  text-align: center;
+  padding: 50px 20px;
+  background: #f2f5f7;
+}
 
+.box {
+  max-width: 400px;
+  margin: auto;
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+}
+
+button {
+  width: 100%;
+  padding: 16px;
+  background: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+#result {
+  margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h1>🚚 Halid Delivery</h1>
+
+<p>📍 Share your location for delivery</p>
+
+<button onclick="shareLocation()">
+📍 Share My Location
+</button>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+
+function shareLocation() {
+
+if (!navigator.geolocation) {
+alert("Location is not supported");
+return;
+}
+
+document.getElementById("result").innerHTML =
+"⏳ Getting your location...";
+
+navigator.geolocation.getCurrentPosition(
+
+function(position) {
+
+let lat = position.coords.latitude;
+let lon = position.coords.longitude;
+
+let webApp =
+"YOUR_GOOGLE_SCRIPT_URL";
+
+fetch(webApp + "?lat=" + lat + "&lon=" + lon)
+.then(() => {
+
+document.getElementById("result").innerHTML =
+"✅ Location sent successfully!";
+
+})
+.catch(() => {
+
+document.getElementById("result").innerHTML =
+"❌ Something went wrong.";
+
+});
+
+},
+
+function() {
+
+document.getElementById("result").innerHTML =
+"❌ Please allow location permission.";
+
+}
+
+);
+
+}
+
+</script>
+
+</body>
+</html>
